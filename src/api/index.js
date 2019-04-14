@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 var users = {data:[
     {
       "id": 1,
@@ -231,6 +233,8 @@ var users = {data:[
     }
   ]}
 
+const userUri = "https://reqres.in/api/users";
+
 export const doSomething = function(){
     return new Promise((resolve, reject) => {
         let wait = setTimeout(() => {
@@ -238,4 +242,8 @@ export const doSomething = function(){
             resolve(users);
           }, 200)
     })
+};
+
+export const callUserApi = function(){
+    return axios.get(userUri);
 };

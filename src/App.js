@@ -7,7 +7,8 @@ import './App.css';
 
 import SearchArea from './search-area';
 import ReportArea from './report-area';
-import {doSomething} from './api';
+import UserArea from './user-details';
+import {doSomething, callUserApi} from './api';
 
 class App extends Component {
 
@@ -15,7 +16,8 @@ class App extends Component {
     super(props)
     this.state={
       searchtext : '',
-      searchresult: undefined
+      searchresult: undefined,
+      userdetails: undefined
     }
   }
 
@@ -44,13 +46,24 @@ class App extends Component {
       });
   };
 
+  callUserApi=()=>{
+    callUserApi().then(res=>{
+      console.log(res.data);
+      res.data && this.setState(
+        function(preState, props){
+          return{userdetails : res.data.data}
+        }
+      );
+    });
+  }
 
 
   render() {
     return (
       <div className="App">
-        <SearchArea text={this.state.searchtext} searchHandler={this.handleSearch}></SearchArea>
-        <ReportArea result={this.state.searchresult}></ReportArea>
+        <SearchArea text={this.state.searchtext} searchHandler={this.handleSearch} callUserApi={this.callUserApi}></SearchArea>
+        {this.state.searchresult && <ReportArea result={this.state.searchresult} ></ReportArea>}
+        {this.state.userdetails && <UserArea result={this.state.userdetails} ></UserArea>}
       </div>
     );
   }

@@ -5,6 +5,7 @@ export default function SearchArea(props){
         <div className="col-lg-4 col-lg-offset-4">
             <input type="search" id="search" value={props.text} onChange={props.searchHandler}
             className="form-control" placeholder="Search using Fuzzy searching"/>
+            <button onClick={props.callUserApi} >search</button>
         </div>
     );
 }
